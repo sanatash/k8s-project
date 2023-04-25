@@ -1,0 +1,15 @@
+helm repo add jenkinsrepo https://charts.jenkins.io
+helm install jenkins jenkinsrepo/jenkins --set controller.serviceType=NodePort
+kubectl port-forward svc/jenkins 8080:8080
+
+# this command is being used to display the chart admin password for a Jenkins deployment running in a Kubernetes cluster
+# run it from cmd terminal on Windows
+kubectl exec --namespace default -it svc/jenkins -c jenkins -- /bin/cat /run/secrets/additional/chart-admin-password
+
+# don't forget to upgrade kubernetes plugin to latest version
+
+# don't forget to configure in BuiltIn-Node the number of executors to 2
+
+# create new serviceaccount for jenkins which will create pod to run helm inside. This pod which runs
+# helm inside kubernetes requires special set of permissions to access Kubernetes resources. Create it from project directory
+kubectl create -f helm-jenkins/serviceaccount.yaml
