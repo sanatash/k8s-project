@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "producer.fullname" . }}
+  labels:
+    app: {{ include "producer.name" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "producer.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "producer.name" . }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        ports:
+        - name: http
+          containerPort: 8080
+        command: ["python", "producer.py", "-p", "{{ .Values.command.port }}", "-s", "{{ .Values.command.server }}", "-m", "{{ .Values.command.message }}", "-r", "{{ .Values.command.repeat }}"]

@@ -1,0 +1,22 @@
+image:
+  repository: 2205experts/consumer
+  tag: latest
+
+command:
+  port: 5672
+  server: rabbitmq
+
+service:
+  type: ClusterIP
+  port: 8080
+
+serviceAccount:
+  create: true
+
+ingress:
+  enabled: false
+
+autoscaling:
+  enabled: false
+
+
