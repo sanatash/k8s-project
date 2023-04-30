@@ -1,5 +1,5 @@
 # k8s-project
-Full producer consumer solution on top of Kebernetes
+Full producer consumer solution on top of Kubernetes
 
 Version 1: \
     1. ci pipeline - continious integration pipeline \
