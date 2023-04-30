@@ -1,6 +1,15 @@
-helm install rabbitmq bitnami/rabbitmq --set image.repository=rabbitmq,image.tag=3-management --set auth.username=admin,auth.password=secretpassword --set metrics.enabled=true
+helm install rabbitmq bitnami/rabbitmq --set auth.password=secretpassword --set metrics.enabled=true
 helm uninstall rabbitmq
 kubectl get pvc
 # delete appropriate pvc and it will remove appropriate pv. uninstall doesn't delete rabbitmq persistent volume
 # instead of uninstall and install again, you can do 'upgrade -i'
-helm upgrade -i rabbitmq bitnami/rabbitmq --set image.repository=rabbitmq,image.tag=3-management --set auth.username=admin,auth.password=secretpassword --set metrics.enabled=true
+helm upgrade -i rabbitmq bitnami/rabbitmq --set auth.password=secretpassword --set metrics.enabled=true
+
+# expose port for rabbitmq metrics
+kubectl port-forward --namespace default svc/rabbitmq 9419:9419
+
+# connect to see rabbitmq management
+kubectl port-forward --namespace default svc/rabbitmq 15672:15672
+
+# from browser:  http://127.0.0.1:9419/metrics
+# from browser:  http://127.0.0.1:15672
