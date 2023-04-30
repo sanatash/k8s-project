@@ -1,6 +1,10 @@
 # create monitoring namespace
-kubectl apply -f monitoring-namespace.yaml
+kubectl apply -f commands/monitoring-namespace.yaml
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo add kube-state-metrics https://kubernetes.github.io/kube-state-metrics
-helm upgrade -i prometheus prometheus-community/prometheus --namespace monitoring -f prometheus-values.yaml
+helm upgrade -i prometheus prometheus-community/prometheus --namespace monitoring -f prometheus-chart/values.yaml
 kubectl get pods -n monitoring
+# expose node metrics - 127.0.0.1:9100/metrics
+kubectl -n monitoring port-forward svc/prometheus-prometheus-node-exporter 9100:9100
+E expose prometheus server - http://127.0.0.1:9090/
+kubectl -n monitoring port-forward svc/prometheus-server 9090:80
