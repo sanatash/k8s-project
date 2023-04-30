@@ -1,0 +1,4 @@
+auth:
+  password: "moshe"
+metrics:
+  enabled: true

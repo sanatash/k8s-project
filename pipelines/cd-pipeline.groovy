@@ -18,12 +18,13 @@ spec:
 	stages {
 		stage('Run helm rabbitmq install') {
 			steps {
-			        git 'https://github.com/sanatash/k8s-project.git'
+			        //git 'https://github.com/sanatash/k8s-project.git'
 				container('helm-rabbitmq') {
 					sh '''
+					git clone https://github.com/sanatash/k8s-project.git
 					helm repo add bitnami https://charts.bitnami.com/bitnami
 					helm repo update
-					helm upgrade -i rabbitmq bitnami/rabbitmq -f commands/rabbitmq-values.yaml
+					helm upgrade -i rabbitmq bitnami/rabbitmq -f k8s-project/rabbitmq-chart/values.yaml
 					helm repo add myhelmrepo https://sanatash.github.io/helm-chart/
 					helm upgrade -i producer myhelmrepo/producer
 					helm upgrade -i consumer myhelmrepo/consumer

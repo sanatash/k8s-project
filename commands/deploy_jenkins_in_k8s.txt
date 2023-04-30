@@ -8,7 +8,7 @@ kubectl exec --namespace default -it svc/jenkins -c jenkins -- /bin/cat /run/sec
 
 # don't forget to upgrade kubernetes plugin to latest version
 
-# don't forget to configure in BuiltIn-Node the number of executors to 2
+# don't forget to configure the number of executors in BuiltIn-Node in "Manage Nodes and Clouds"  to 2
 
 # create new serviceaccount for jenkins which will create pod to run helm inside. This pod which runs
 # helm inside kubernetes requires special set of permissions to access Kubernetes resources. Create it from project directory
