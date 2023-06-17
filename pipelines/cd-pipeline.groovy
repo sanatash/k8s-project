@@ -1,7 +1,7 @@
 pipeline {
 	agent {
 		kubernetes {
-			//cloud 'kubernetes'
+
 			yaml """
 apiVersion: v1
 kind: Pod
@@ -18,7 +18,7 @@ spec:
 	stages {
 		stage('Run helm rabbitmq install') {
 			steps {
-			        //git 'https://github.com/sanatash/k8s-project.git'
+
 				container('helm-rabbitmq') {
 					sh '''
 					git clone https://github.com/sanatash/k8s-project.git
